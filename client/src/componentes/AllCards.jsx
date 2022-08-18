@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "./Card";
 import { Link } from "react-router-dom";
-import { getCountries, filterContinents } from "../redux/actions";
+import { getCountries, filterContinents, filterActivity } from "../redux/actions";
 import Paginate from "./Paginate";
 import styles from "./AllCards.module.css";
 
@@ -57,9 +57,15 @@ export default function AllCards() {
   };
 
   // FILTROS
+  //continente
   function handleFilterContinents(e) {
     dispatch(filterContinents(e.target.value));
   }
+
+  //actividades
+  function handleFilterActivity(e){
+    dispatch(filterActivity(e.target.value))
+  } 
 
   //LOGICA ↓↓↓
   //en el allCountries tenemos un arreglo de objetos con todos los paises. Si es un arreglo de objeto, necesito mapear, y por cada objeto voy a mostrar una carta
@@ -79,7 +85,7 @@ export default function AllCards() {
         </select>
 
         {/* FILTRO ACTIVIDADES */}
-        <select>
+        <select onChange={(e) => handleFilterActivity(e)}>
           <option value='All'>Todos</option>
           <option value='created'>Creados</option>
           <option value='db'>Existentes</option>
