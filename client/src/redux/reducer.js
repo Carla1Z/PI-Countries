@@ -56,6 +56,11 @@ function reducer(state = initialState, action) {
         ...state,
         paises: sortedArr,
       };
+    case "GET_NAME_COUNTRY":
+      return {
+        ...state,
+        paises: action.payload,
+      };
     case "FILTER_ACTIVITY":
       const allActivities = state.activities;
       const activityFilter =
