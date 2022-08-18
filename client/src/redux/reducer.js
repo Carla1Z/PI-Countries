@@ -31,6 +31,31 @@ function reducer(state = initialState, action) {
         ...state,
         paises: countriesFiltered,
       };
+    case "ORDER_BY_NAME":
+      let sortedArr =
+        action.payload === "asc"
+          ? state.paises.sort(function (a, b) {
+              if (a.name > b.name) {
+                return 1;
+              }
+              if (b.name > a.name) {
+                return -1;
+              }
+              return 0;
+            })
+          : state.paises.sort(function (a, b) {
+              if (a.name > b.name) {
+                return -1;
+              }
+              if (b.name > a.name) {
+                return 1;
+              }
+              return 0;
+            });
+      return {
+        ...state,
+        paises: sortedArr,
+      };
     case "FILTER_ACTIVITY":
       const allActivities = state.activities;
       const activityFilter =
@@ -39,7 +64,8 @@ function reducer(state = initialState, action) {
           : allActivities.filter((el) => !el.createdInDb);
       return {
         ...state,
-        activities: action.payload === "All" ? state.allActivities : activityFilter,
+        activities:
+          action.payload === "All" ? state.allActivities : activityFilter,
       };
     default:
       return state;

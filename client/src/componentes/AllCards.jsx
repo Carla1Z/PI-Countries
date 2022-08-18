@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "./Card";
 import { Link } from "react-router-dom";
-import { getCountries, filterContinents, filterActivity } from "../redux/actions";
+import { getCountries, filterContinents, orderByName } from "../redux/actions";
 import Paginate from "./Paginate";
 import styles from "./AllCards.module.css";
 
@@ -36,6 +36,11 @@ export default function AllCards() {
   // 10 paises por pagina
   const [countriesPerPage, setCountriesPerPage] = useState(10);
 
+
+  //ordenamiento
+  const [orden, setOrden]= useState('')
+  //------------
+
   //const ... = la pagina actual donde estoy por(*) la cantidad de paises por pagina
   const indexOfLastCountry = currentPage * countriesPerPage; //10
 
@@ -62,10 +67,20 @@ export default function AllCards() {
     dispatch(filterContinents(e.target.value));
   }
 
+  //ordenamiento 
+  function handleSort(e){
+    e.preventDefault()
+    dispatch(orderByName(e.target.value))
+    setCurrentPage(1)
+    // ↑↑↑ esta seteando para que empiece a ordenar el la pagina 1
+    setOrden(`Ordenado ${e.target.value}`)
+    // ↑↑↑
+  }
+
   //actividades
-  function handleFilterActivity(e){
-    dispatch(filterActivity(e.target.value))
-  } 
+  // function handleFilterActivity(e){
+  //   dispatch(filterActivity(e.target.value))
+  // } 
 
   //LOGICA ↓↓↓
   //en el allCountries tenemos un arreglo de objetos con todos los paises. Si es un arreglo de objeto, necesito mapear, y por cada objeto voy a mostrar una carta
@@ -85,10 +100,16 @@ export default function AllCards() {
         </select>
 
         {/* FILTRO ACTIVIDADES */}
-        <select onChange={(e) => handleFilterActivity(e)}>
+        {/* <select onChange={(e) => handleFilterActivity(e)}>
           <option value='All'>Todos</option>
           <option value='created'>Creados</option>
           <option value='db'>Existentes</option>
+        </select> */}
+
+        {/* FILTRO ORDENAMIENTO  */}
+        <select onChange={(e) => handleSort(e)}>
+          <option value="asc">A - Z</option>
+          <option value="desc">Z - A</option>
         </select>
 
 
