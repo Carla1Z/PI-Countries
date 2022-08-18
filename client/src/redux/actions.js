@@ -25,10 +25,10 @@ export function filterContinents(payload) {
 }
 
 export function filterActivity(payload) {
-  let allActivities = await.axios.get("http://localhost:3001/activities");
-  return {
+  // let allActivities = await axios.get("http://localhost:3001/activities");
+return {
     type: "FILTER_ACTIVITY",
-    payload: allActivities.data,
+    payload
   };
 }
 
