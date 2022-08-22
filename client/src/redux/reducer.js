@@ -62,14 +62,17 @@ function reducer(state = initialState, action) {
         paises: action.payload,
       };
     case "FILTER_ACTIVITY":
-      return{
-        ...state,
-        paises: activities
-      }
       return {
         ...state,
-        activities:
-          action.payload === "All" ? state.allActivities : activityFilter,
+        activities: action.payload,
+      };
+    case "BY_ACTIVITIES":
+      const activities = state.allCountriesCopy.filter((c) =>
+        c.activities.find((c) => c.name === action.payload)
+      );
+      return {
+        ...state,
+        allCountries: activities,
       };
     default:
       return state;

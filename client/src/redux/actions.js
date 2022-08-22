@@ -47,7 +47,7 @@ export function getNameCountry(name) {
   };
 }
 
-export function filterActivity(payload) {
+export function filterActivity() {
   return async function (dispatch) {
     let allActivities = await axios("http://localhost:3001/activities", {});
     return dispatch({
@@ -56,6 +56,13 @@ export function filterActivity(payload) {
     });
   }; 
 }
+
+export function byActivities(payload) {
+  return {
+      type: "BY_ACTIVITIES",
+      payload,
+  }
+};
 
 /*
 export const buscarPaises = () => {
