@@ -1,27 +1,41 @@
 const { Router } = require("express");
-const { Activity } = require("../db.js");
+const { Activity, Country } = require("../db.js");
 
 const activitiesRouter = Router();
 
 activitiesRouter.post("", async (req, res) => {
   // Crea una actividad turística en la base de datos, relacionada con los países correspondientes
-  let { id, name, difficulty, duration, season } = req.body;
+  const { id, name, difficulty, duration, season } = req.body;
+  const { countries } = req.body; //recibe un array con paises
 
   let newActivity = await Activity.create({
-    id,
+    // id,
     name,
     difficulty,
     duration,
     season,
   });
   // console.log(newActivity)
-  // res.status(200).send("new activity created");
+  // res.status(200).send(newActivity);
+
+  // const activityCreate = await Activity.create(newActivity);
+
+  const addCountries = await Country.findAll({
+    where: {
+      name: name, //?
+    },
+  });
+
+  await addCountries.forEach((el) => {
+    el.addActivity(newActivity);
+  });
+
   res.status(200).send(newActivity);
 });
 
 activitiesRouter.get("", async (req, res) => {
   const activities = await Activity.findAll({
-    attributes: ["name"],
+    attributes: ["name", "difficulty", "duration", "season"],
   });
   res.status(200).send(activities);
 });

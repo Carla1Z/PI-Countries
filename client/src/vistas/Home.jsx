@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <h4>Hola💕!</h4>
-      <SearchBar />
+      <SearchBar /> 
       <AllCards />
     </div>
   );

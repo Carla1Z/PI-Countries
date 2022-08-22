@@ -48,11 +48,13 @@ export function getNameCountry(name) {
 }
 
 export function filterActivity(payload) {
-  // let allActivities = await axios.get("http://localhost:3001/activities");
-  return {
-    type: "FILTER_ACTIVITY",
-    payload,
-  };
+  return async function (dispatch) {
+    let allActivities = await axios("http://localhost:3001/activities", {});
+    return dispatch({
+      type: "FILTER_ACTIVITY",
+      payload: allActivities.data,
+    });
+  }; 
 }
 
 /*

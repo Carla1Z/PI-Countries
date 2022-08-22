@@ -12,7 +12,7 @@ export default function SearchBar() {
     setName(e.target.value);
     console.log(name);
   }
-
+ 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getNameCountry(name));
@@ -21,7 +21,7 @@ export default function SearchBar() {
   return (
     <div>
       <input
-        type="text"
+        type="text" 
         placeholder="Search..."
         onChange={(e) => handleInputChange(e)}
       />

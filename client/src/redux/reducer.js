@@ -62,11 +62,10 @@ function reducer(state = initialState, action) {
         paises: action.payload,
       };
     case "FILTER_ACTIVITY":
-      const allActivities = state.activities;
-      const activityFilter =
-        action.payload === "created"
-          ? allActivities.filter((el) => el.createdInDb)
-          : allActivities.filter((el) => !el.createdInDb);
+      return{
+        ...state,
+        paises: activities
+      }
       return {
         ...state,
         activities:
